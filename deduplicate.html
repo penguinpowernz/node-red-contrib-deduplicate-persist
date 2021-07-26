@@ -1,11 +1,10 @@
 <script type="text/javascript">
     RED.nodes.registerType('deduplicate', {
         category: 'function',
-        color: '#dd99ff',
+        color: '#99d7ff',
         defaults: {
             name: {value:""},
-            keyproperty: {keyproperty:""},
-            expiry: {value: 5, validate:RED.validators.number()}
+            keyproperty: {keyproperty:""}
         },
         inputs: 1,
         outputs: 2,
@@ -25,12 +24,8 @@
         <label for="node-input-keyproperty"><i class="icon-tag"></i> Key Property</label>
         <input type="text" id="node-input-keyproperty" placeholder="Key Property (optional)">
     </div>
-    <div class="form-row">
-        <label for="node-input-expiry"><i class="icon-tag"></i> Expiry (seconds)</label>
-        <input type="text" id="node-input-expiry" placeholder="Cache expiry (seconds)">
-    </div>
 </script>
 
 <script type="text/x-red" data-help-name="deduplicate">
-    <p>Node-RED node that filters duplicate messages.</p>
+    <p>Node-RED node that filters duplicate messages and persists them.</p>
 </script>
