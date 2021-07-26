@@ -1,17 +1,18 @@
 {
-  "name": "node-red-contrib-deduplicate",
+  "name": "node-red-contrib-deduplicate-persist",
   "version": "0.2.0",
-  "description": "Node-RED node that filters duplicate messages",
+  "description": "Node-RED node that filters duplicate messages and persists them",
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/peterstrapp/node-red-contrib-deduplicate"
+    "url": "https://github.com/penguinpowernz/node-red-contrib-deduplicate-persist"
   },
   "keywords": [
     "node-red",
     "deduplicate",
     "duplicate",
-    "cache"
+    "cache",
+    "persist"
   ],
   "node-red": {
     "nodes": {
@@ -27,6 +28,10 @@
     {
       "name": "Greg Stephens",
       "email": "greg@udon.org"
+    },
+    {
+      "name": "Robert McLeod",
+      "email": "robert@penguinpower.co.nz"
     }
   ]
 }
