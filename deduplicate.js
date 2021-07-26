@@ -2,25 +2,26 @@
 module.exports = function (RED) {
     function DeDuplicate(config) {
         RED.nodes.createNode(this, config);
-        this.expiry = config.expiry;
         this.keyproperty = config.keyproperty;
         var node = this;
 
-        function expired(entry) {
-            return new Date().getTime() > entry.expiry;
-        }
-
+        fs.readFile(node.id+"_dedupe", (err, data) => {
+            if (err) throw err;
+            node.cache = JSON.parse(data);
+        });
+        
         function cacheContains(key) {
             var i;
             for (i = 0; i < node.cache.length; i += 1) {
                 if (node.cache[i].key === key) {
-                    if (!expired(node.cache[i])) {
-                        return true;
-                    }
-                    node.cache.splice(i, 1);
+                    return true;
                 }
             }
             return false;
+        }
+        
+        function saveToDisk() {
+            require('fs').writeFile(node.id+"_dedupe", JSON.stringify(node.cache), function() {});
         }
 
         this.on('input', function (msg) {
@@ -34,8 +35,9 @@ module.exports = function (RED) {
                 return;
             }
 
-            node.cache.push({expiry: new Date().getTime() + node.expiry * 1000, key: JSON.stringify(key)});
+            node.cache.push({key: JSON.stringify(key)});
             node.send([msg, null]);
+            saveToDisk();
         });
     }
     RED.nodes.registerType("deduplicate", DeDuplicate);
